@@ -122,23 +122,26 @@ int main()
 
 
 
+
+
+
 /* Question-------
-1. Declare a class “Employee” and declare the following attributes
+1. Declare a class â€œEmployeeâ€ and declare the following attributes
 inside the class
 a. name (string: private)
 b. id (int: public)
 c. salary (double: private)
 2. Declare necessary constructor/getter-setter
-3. Write a function “display” inside the class which will print all the
+3. Write a function â€œdisplayâ€ inside the class which will print all the
 information of an employee
-4. In main method, create a vector of “Employee” and insert the
+4. In main method, create a vector of â€œEmployeeâ€ and insert the
 following employees
- “Rahim”, 2, 8000
- “Karim”, 1, 15000
- “Abir”, 4, 9000
- “Roni”, 3, 18000
+ â€œRahimâ€, 2, 8000
+ â€œKarimâ€, 1, 15000
+ â€œAbirâ€, 4, 9000
+ â€œRoniâ€, 3, 18000
 5. Find the employees whose salary >= 10000
-6. Define a function “Increment(double percentage)” inside the class
+6. Define a function â€œIncrement(double percentage)â€ inside the class
 which will increase the salary of an employee using the following
 formula:
  salary += salary * percentage/100
