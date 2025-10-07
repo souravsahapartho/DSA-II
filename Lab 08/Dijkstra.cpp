@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
-#include <climits> // For INT_MAX
+#include <climits>
 using namespace std;
 
 class Graph {
     int n;
-    vector<vector<int>> w; // Adjacency matrix
+    vector<vector<int>> w;
     vector<int> d, p, q;
     bool directed;
 
@@ -36,6 +36,29 @@ public:
         return idx;
     }
 
+    void printPath(int v) {
+        if (p[v] == -1) {
+            cout << v;
+            return;
+        }
+        printPath(p[v]);
+        cout << " -> " << v;
+    }
+
+    void FindPath(int src) {
+        Dijkstra(src);
+        cout << "Shortest paths from node " << src << ":\n";
+        for (int dest = 0; dest < n; ++dest) {
+            if (d[dest] == INT_MAX) {
+                cout << "No path to node " << dest << "\n";
+                continue;
+            }
+            cout << "To node " << dest << ": Path = ";
+            printPath(dest);
+            cout << ", Distance = " << d[dest] << "\n";
+        }
+    }
+
     void Dijkstra(int src) {
         d = vector<int>(n, INT_MAX);
         p = vector<int>(n, -1);
@@ -44,7 +67,7 @@ public:
 
         for (int i = 0; i < n; i++) {
             int u = ExtractMin();
-            if (u == -1) break; // All reachable vertices processed
+            if (u == -1) break;
             q[u] = 0;
 
             for (int v = 0; v < n; v++) {
@@ -56,37 +79,19 @@ public:
                 }
             }
         }
-
-        // Print shortest distances from source
-        cout << "Vertex\tDistance from Source\tPath\n";
-        for (int i = 0; i < n; i++) {
-            cout << i << "\t" << d[i] << "\t\t";
-            printPath(i);
-            cout << endl;
-        }
-    }
-
-    void printPath(int v) {
-        if (p[v] == -1) {
-            cout << v;
-            return;
-        }
-        printPath(p[v]);
-        cout << " -> " << v;
     }
 };
 
 int main() {
-    Graph g(5, false);
+    Graph g(5, true); // Directed graph
     g.addEdge(0, 1, 5);
-    g.addEdge(0, 2, 2);
-    g.addEdge(0, 3, 1);
-    g.addEdge(1, 3, 6);
-    g.addEdge(1, 4, 4);
-    g.addEdge(2, 3, 3);
-    g.addEdge(2, 4, 8); // Last valid edge; remove or fix the duplicate
+    g.addEdge(0, 2, 3);
+    g.addEdge(0, 3, 3);
+    g.addEdge(1, 4, 2);
+    g.addEdge(1, 3, 2);
+    g.addEdge(2, 1, 1);
+    g.addEdge(2, 4, 1); // Only the last one matters
 
-    g.Dijkstra(0);
-
+    g.FindPath(0); // Find shortest paths from node 0
     return 0;
 }
